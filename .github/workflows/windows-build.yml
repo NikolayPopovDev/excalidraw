@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -38,10 +38,11 @@ jobs:
           NODE_ENV: production
 
       - name: Create zip archive
-        run: zip -r MyApp-windows.zip dist/MyApp-win32-x64/
+        run: cd dist && zip -r MyApp-windows.zip MyApp-win32-x64/
         
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: MyApp-windows
-          path: MyApp-windows.zip
+          path: dist/MyApp-windows.zip
+        
