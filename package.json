@@ -2,6 +2,7 @@
   "private": true,
   "name": "excalidraw-monorepo",
   "packageManager": "yarn@1.22.22",
+  "main": "electron.js",
   "workspaces": [
     "excalidraw-app",
     "packages/excalidraw",
@@ -26,6 +27,7 @@
     "socket.io-client": "4.7.2"
   },
   "devDependencies": {
+    "@electron/packager": "18.3.3",
     "@excalidraw/eslint-config": "1.0.3",
     "@excalidraw/prettier-config": "1.0.2",
     "@types/chai": "4.3.0",
@@ -39,6 +41,9 @@
     "@vitest/ui": "0.32.2",
     "chai": "4.3.6",
     "dotenv": "16.0.1",
+    "electron": "31.1.0",
+    "electron-is-dev": "3.0.1",
+    "electron-packager": "17.1.2",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-react-app": "7.0.1",
     "eslint-plugin-prettier": "3.3.1",
@@ -64,6 +69,7 @@
   "homepage": ".",
   "prettier": "@excalidraw/prettier-config",
   "scripts": {
+    "electron": "yarn fix:path && electron .",
     "build-node": "node ./scripts/build-node.js",
     "build:app:docker": "yarn --cwd ./excalidraw-app build:app:docker",
     "build:app": "yarn --cwd ./excalidraw-app build:app",
@@ -72,6 +78,7 @@
     "fix:code": "yarn test:code --fix",
     "fix:other": "yarn prettier --write",
     "fix": "yarn fix:other && yarn fix:code",
+    "fix:path": "node ./scripts/fix-path.js",
     "locales-coverage": "node scripts/build-locales-coverage.js",
     "locales-coverage:description": "node scripts/locales-coverage-description.js",
     "prepare": "husky install",
