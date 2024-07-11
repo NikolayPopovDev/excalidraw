@@ -12,18 +12,21 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      - name: Install dependencies
+      - name: Install dependencies  
         run: yarn
 
       - name: Build React app
         run: npm run build
+              
+      - name: Fix path for electron
+        run: yarn fix:path
 
       - name: Install Electron Packager
         run: npm install electron-packager -g
@@ -34,8 +37,11 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Create zip archive
+        run: zip -r MyApp-windows.zip dist/MyApp-win32-x64/
+        
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: MyApp-windows
-          path: dist/MyApp-win32-x64/
+          path: MyApp-windows.zip
